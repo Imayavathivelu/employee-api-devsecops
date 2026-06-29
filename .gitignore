@@ -1,0 +1,31 @@
+# Python virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# SonarQube
+.sonar/
+.scannerwork/
+
+# Reports
+*.json
+*.html
+*.log
+
+# Trivy
+.trivy/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+
+# OS
+Thumbs.db
+.DS_Store
+
+instance/
