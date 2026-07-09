@@ -35,12 +35,14 @@ pipeline {
             }
         }
 
-        stage('SCA - pip-audit') {
-              catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
+       stage('SCA - pip-audit') {
+    steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'UNSTABLE') {
             bat '"%PYTHON%" -m pip install pip-audit'
             bat '"%PYTHON%" -m pip_audit'
         }
-        }
+    }
+}
 
         stage('Docker Build') {
             steps {
