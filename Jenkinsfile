@@ -40,6 +40,7 @@ pipeline {
             bat '"%PYTHON%" -m pip install pip-audit'
             bat '"%PYTHON%" -m pip_audit'
         }
+        }
 
         stage('Docker Build') {
             steps {
