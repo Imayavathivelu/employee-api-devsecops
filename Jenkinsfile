@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "imayavathi/employee-api:v1"
         PYTHON = "C:\\Users\\imaya\\AppData\\Local\\Programs\\Python\\Python314\\python.exe"
-         TRIVY ="C:\Users\imaya\AppData\Local\Microsoft\WinGet\Links\trivy.exe"
+         TRIVY ="C:\\Users\\imaya\\AppData\\Local\\Microsoft\\WinGet\\Links\\trivy.exe"
 
     }
 
