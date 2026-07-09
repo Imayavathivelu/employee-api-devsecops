@@ -57,15 +57,12 @@ pipeline {
     }
 }
 
-        stage('Docker Push') {
+       stage('Docker Push') {
     steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-            bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
-            bat 'docker push %IMAGE_NAME%'
+        script {
+            docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-creds') {
+                bat 'docker push %IMAGE_NAME%'
+            }
         }
     }
 }
