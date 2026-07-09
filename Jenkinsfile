@@ -17,7 +17,7 @@ pipeline {
 
         stage('Verify Tools') {
             steps {
-                bat 'py --version'
+                bat '"%PYTHON%" --version'
                 bat 'docker --version'
                 bat 'kubectl version --client'
             }
