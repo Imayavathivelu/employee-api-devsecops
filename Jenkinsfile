@@ -1,16 +1,73 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = "imayavathi/employee-api:v1"
+    }
+
     stages {
-        stage('Checkout Verification') {
+
+        stage('Checkout') {
             steps {
-                echo 'Repository cloned successfully!'
+                checkout scm
             }
         }
 
-        stage('List Files') {
+        stage('Verify Tools') {
             steps {
-                bat 'dir'
+                bat 'python --version'
+                bat 'docker --version'
+                bat 'kubectl version --client'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat 'pip install -r requirements.txt'
+            }
+        }
+
+        stage('SAST - SonarQube') {
+            steps {
+                echo 'Running SonarQube Analysis...'
+            }
+        }
+
+        stage('SCA - pip-audit') {
+            steps {
+                bat 'pip-audit'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                bat 'docker build -t %IMAGE_NAME% .'
+            }
+        }
+
+        stage('Trivy Scan') {
+            steps {
+                bat 'trivy image %IMAGE_NAME%'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                bat 'docker push %IMAGE_NAME%'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat 'kubectl apply -f deployment.yaml'
+                bat 'kubectl apply -f service.yaml'
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                bat 'kubectl get pods'
+                bat 'kubectl get svc'
             }
         }
     }
