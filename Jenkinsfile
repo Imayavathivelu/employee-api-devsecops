@@ -52,10 +52,10 @@ pipeline {
         }
 
         stage('Trivy Scan') {
-            steps {
-                bat 'trivy image %IMAGE_NAME%'
-            }
-        }
+    steps {
+        bat '"%TRIVY%" image %IMAGE_NAME%'
+    }
+}
 
         stage('Docker Push') {
             steps {
