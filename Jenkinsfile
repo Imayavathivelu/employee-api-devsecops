@@ -25,7 +25,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-               bat 'py -m pip install -r requirements.txt'
+               bat '"%PYTHON%" -m pip install -r requirements.txt'
             }
         }
 
@@ -37,8 +37,8 @@ pipeline {
 
         stage('SCA - pip-audit') {
             steps {
-               bat 'py -m pip install pip-audit'
-               bat 'py -m pip_audit'
+                bat '"%PYTHON%" -m pip install pip-audit'
+                bat '"%PYTHON%" -m pip_audit'
             }
         }
 
